@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace CSharpExercise.src.Infrastructure.Persistence.Configuration
 {
     /// <summary>
-    /// Used to create the Db and retrieve info.
+    /// Used to create the Db
     /// </summary>
     internal class UserInfoConfiguration : IEntityTypeConfiguration<UserInfo>
     {
@@ -21,7 +21,6 @@ namespace CSharpExercise.src.Infrastructure.Persistence.Configuration
                 .HasColumnType("integer")
                 .IsRequired();
 
-            //to check
             builder.HasIndex(x => x.Id)
                 .HasDatabaseName("id")
                 .IsUnique();
