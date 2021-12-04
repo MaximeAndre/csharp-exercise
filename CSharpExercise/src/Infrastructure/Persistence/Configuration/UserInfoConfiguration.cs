@@ -3,7 +3,7 @@ using CSharpExercise.src.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CSharpExercise.src.Infrastructure.Persistence
+namespace CSharpExercise.src.Infrastructure.Persistence.Configuration
 {
     /// <summary>
     /// Used to create the Db and retrieve info.
@@ -33,8 +33,8 @@ namespace CSharpExercise.src.Infrastructure.Persistence
 
             builder.Property(x => x.Password)
                 .HasColumnName("password")
-                .HasColumnType("varchar(50)")
-                .HasMaxLength(50);
+                .HasColumnType("varchar(100)")
+                .HasMaxLength(100);
 
             builder.Property(x => x.FirstName)
                 .HasColumnName("first_name")               

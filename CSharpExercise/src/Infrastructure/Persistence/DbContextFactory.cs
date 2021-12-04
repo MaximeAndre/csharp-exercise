@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace CSharpExercise.src.Infrastructure
+namespace CSharpExercise.src.Infrastructure.Persistance
 {
     //unUsed this class is used to handle multiuple instance of applicationDbContext
     public class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
