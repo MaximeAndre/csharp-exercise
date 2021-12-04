@@ -1,8 +1,10 @@
 ﻿using CSharpExercise.src.Application.Common.Interface;
 using CSharpExercise.src.Application.UserInfos;
+using CSharpExercise.src.Infrastructure.Handlers;
 using CSharpExercise.src.Infrastructure.Persistance;
+using CSharpExercise.src.WebUI.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-
 //using NSwag;
 
 
@@ -11,6 +13,10 @@ namespace CSharpExercise.src.WebUI
 {
     public class Startup
     {
+        /// <summary>
+        /// Constructor Getting appsetting.json configuration
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,18 +27,22 @@ namespace CSharpExercise.src.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //adding controllers
             services.AddControllers();
 
+            // Injecting the ApplicationDbContext to link DB          
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("PostgreConnectionString")));
 
-            //Select the IRepository we want to use;
+            // Affecting the right implementation of IUserInfoRepository if multiples are avaliable
             services.AddScoped<IUserInfoRepository, PostgreSqlUserInfoRepository>();
 
-            // Authentication proces to get infos from the current user.
-           /* services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(x=>x.LoginPath="/account/login");*/
+            // Settign up basic authentication 
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
+            // Injecting UserInfoService
+            services.AddScoped<IUserInfoService, UserInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +54,17 @@ namespace CSharpExercise.src.WebUI
                 app.UseDeveloperExceptionPage();
             }
 
+            //TODO: Check Swagger
             // Register the Swagger generator and the Swagger UI middleware
             // app.UseSwaggerUi3();
             // app.UseReDoc(); // serve ReDoc UI
+
+            // Gestion multi-origin 
+            // Allow any request
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
 
             app.UseAuthentication();
 
