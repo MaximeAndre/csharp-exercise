@@ -1,6 +1,6 @@
 ﻿using CSharpExercise.src.Application.Common.Interface;
 using CSharpExercise.src.Domain.Entities;
-using CSharpExercise.src.Infrastructure;
+using CSharpExercise.src.Infrastructure.Persistance;
 
 namespace CSharpExercise.src.Application.UserInfos
 {

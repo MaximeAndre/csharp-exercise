@@ -1,14 +1,8 @@
 ﻿using CSharpExercise.src.Application.Common.Interface;
 using CSharpExercise.src.Application.UserInfos;
-using CSharpExercise.src.Infrastructure;
-using CSharpExercise.src.WebUI.Controllers;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+using CSharpExercise.src.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+
 //using NSwag;
 
 
