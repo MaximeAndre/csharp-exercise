@@ -2,8 +2,12 @@
 
 namespace CSharpExercise.src.Application.Common.Interface
 {
+    /// <summary>
+    /// Interface for User entity repository
+    /// </summary>
     public interface IUserInfoRepository
     {
-        UserInfo CheckAuthentication(string login, string pwd);
+        Task<UserInfo> CheckAuthentication(string login, string pwd);
+
     }
 }

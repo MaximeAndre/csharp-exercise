@@ -7,6 +7,8 @@ namespace CSharpExercise.src.Infrastructure.Persistence
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            //Seeding 
+            //TODO: Remove the secret 
             modelBuilder.Entity<UserInfo>().HasData(
                 new UserInfo()
                 {

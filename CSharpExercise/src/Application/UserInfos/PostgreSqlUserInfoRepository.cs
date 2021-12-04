@@ -4,6 +4,9 @@ using CSharpExercise.src.Infrastructure.Persistance;
 
 namespace CSharpExercise.src.Application.UserInfos
 {
+    /// <summary>
+    /// IUserInforepository implementation for PostgreSql
+    /// </summary>
     public class PostgreSqlUserInfoRepository : IUserInfoRepository
     {
         private ApplicationDbContext context;
@@ -13,7 +16,14 @@ namespace CSharpExercise.src.Application.UserInfos
         {
             this.context = context;
         }
-        public UserInfo CheckAuthentication(string login, string pwd)
+
+        /// <summary>
+        /// Check wether the auth info are correct and then return user info
+        /// </summary>
+        /// <param name="login">user login</param>
+        /// <param name="pwd">user password</param>
+        /// <returns></returns>
+        public async Task<UserInfo> CheckAuthentication(string login, string pwd)
         {
             UserInfo result;
 
@@ -21,10 +31,10 @@ namespace CSharpExercise.src.Application.UserInfos
             {
                 //string passwordHash = BCrypt.Net.BCrypt.HashPassword(pwd);
                 //Can be null if not found
-                result = context.UserInfos.FirstOrDefault(u => u.Login == login);
+                result = context.UserInfos.FirstOrDefault(u => u.Login == login && u.Password ==pwd);
 
                 //if login does not exist or password does not match => unauthorized
-                if (result == null || !BCrypt.Net.BCrypt.Verify(pwd, result.Password))
+                if (result == null /*|| !BCrypt.Net.BCrypt.Verify(pwd, result.Password)*/)
                 {
                     result = new UserInfo()
                     {
