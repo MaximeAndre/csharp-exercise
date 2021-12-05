@@ -8,13 +8,12 @@ namespace CSharpExercise.src.Infrastructure.Persistence
         public static void Seed(this ModelBuilder modelBuilder)
         {
             //Seeding 
-            //TODO: Remove the secret 
             modelBuilder.Entity<UserInfo>().HasData(
                 new UserInfo()
                 {
                     Id = 1,
                     Login = "LGilly",
-                    Password = BCrypt.Net.BCrypt.HashPassword("LGillyPwd"),
+                    Password = "$2a$11$b66P/YxRNxaCad4iB6EsUO7VO2Rykq1.jJFwFhow.yS0NxFEuQnci",
                     FirstName = "Laurent",
                     LastName = "G.",
                     Email = "l.g@oplead.com"
@@ -23,7 +22,7 @@ namespace CSharpExercise.src.Infrastructure.Persistence
                {
                    Id = 2,
                    Login = "MAndre",
-                   Password = BCrypt.Net.BCrypt.HashPassword("MAndrePwd"),
+                   Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6",
                    FirstName = "Maxime",
                    LastName = "Andre",
                    Email = "maxime@andre.com"
@@ -32,7 +31,7 @@ namespace CSharpExercise.src.Infrastructure.Persistence
                {
                    Id = 3,
                    Login = "ETaume",
-                   Password = BCrypt.Net.BCrypt.HashPassword("ETaumePwd"),
+                   Password = "$2a$11$OlFzyJ425O67VSd5ibDDrOeXhD1WV2A4P5hrqWdzr/xLImD7zMesG",
                    FirstName = "Emma",
                    LastName = "Taume",
                    Email = "emma@taume.com"
