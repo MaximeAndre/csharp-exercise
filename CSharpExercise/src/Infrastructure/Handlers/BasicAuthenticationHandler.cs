@@ -46,7 +46,7 @@ namespace CSharpExercise.src.Infrastructure.Handlers
                 return AuthenticateResult.Fail("Missing Authorization Header");
 
             //Initialize to null
-            UserInfo userInfo = null;
+            UserInfo userInfo;
             try
             {
                 var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
@@ -67,7 +67,7 @@ namespace CSharpExercise.src.Infrastructure.Handlers
                 return AuthenticateResult.Fail("Invalid Username or Password");
 
             //Else prepare the container for the auth data
-            //Adding the Hash of the password
+            //Adding the Password Hash
             var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, userInfo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userInfo.Login),
