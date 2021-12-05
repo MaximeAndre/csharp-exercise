@@ -30,4 +30,8 @@
     <Folder Include="src\Infrastructure\Persistence\Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="docker-compose.dcproj" />
+  </ItemGroup>
+
 </Project>
