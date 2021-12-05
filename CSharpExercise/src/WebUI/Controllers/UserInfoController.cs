@@ -44,12 +44,10 @@ namespace CSharpExercise.src.WebUI.Controllers
             //Checking Db info
             var user = await _repository.CheckAuthentication(name,pwd);
 
-            //Checking if nointernal error
-            if(user==null) return StatusCode(500);
-            //Checking if authorized
-            else if (user.Id < 0) return StatusCode(401);
+            //Checking if no internal error
+            if(user==null) return StatusCode(StatusCodes.Status500InternalServerError);
             //else dsiplaying infos
-            return StatusCode(200, JsonSerializer.Serialize(user));
+            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(user));
         }
     }
 }
