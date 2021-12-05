@@ -21,7 +21,7 @@ namespace CSharpExercise.src.WebUI.Controllers
     public class UserInfoController : Controller
     {
         // Repository to acces DB from the class
-         private readonly IUserInfoRepository _repository;
+        private readonly IUserInfoRepository _repository;
         private readonly ILogger<UserInfoController> _logger;
 
         // injection of the repository

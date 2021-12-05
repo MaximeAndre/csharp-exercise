@@ -14,6 +14,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using CSharpExercise.src.Application.UserInfos;
+using Microsoft.Extensions.Logging;
 
 namespace CSharpExercieUnitTest
 {
@@ -26,6 +27,7 @@ namespace CSharpExercieUnitTest
     {
 
         private IUserInfoRepository _userInfoRepository;
+        private ILogger<UserInfoController> _logger;
         private static DbContextOptions<ApplicationDbContext> CreateNewContextOptions()
         {
             // Create InMemoryDb
@@ -83,8 +85,12 @@ namespace CSharpExercieUnitTest
         {
             //Arrange
             var authenticatedUser  = new UserInfo() {Id = 2,Login = "MAndre",Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6",FirstName = "Maxime",LastName = "Andre",Email = "maxime@andre.com"};
-            //Setting up the httpcontext to be OK 
-            var sut = new UserInfoController(_userInfoRepository);
+
+            //Mocking the logger 
+            var mock = new Mock<ILogger<UserInfoController>>();
+            _logger = Mock.Of<ILogger<UserInfoController>>();
+
+            var sut = new UserInfoController(_userInfoRepository, _logger);
 
             sut.ControllerContext.HttpContext = new DefaultHttpContext()
             {
@@ -112,8 +118,12 @@ namespace CSharpExercieUnitTest
         {
             //Arrange
             var authenticatedUser = new UserInfo() { Id = 2, Login = "MAndr", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
-            //Setting up the httpcontext to be OK 
-            var sut = new UserInfoController(_userInfoRepository);
+
+            //Mocking the logger 
+            var mock = new Mock<ILogger<UserInfoController>>();
+            _logger = Mock.Of<ILogger<UserInfoController>>();
+
+            var sut = new UserInfoController(_userInfoRepository, _logger);
 
             sut.ControllerContext.HttpContext = new DefaultHttpContext()
             {
