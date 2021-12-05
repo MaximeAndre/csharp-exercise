@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="src\Application\UserInfos\UserInfoRepository.cs" />
+    <Compile Remove="src\Application\UserInfos\MockUserInfoRepository.cs" />
     <Compile Remove="src\Infrastructure\Persistence\DbContextFactory.cs" />
   </ItemGroup>
 
@@ -21,13 +21,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="src\Infrastructure\Persistence\Migrations\" />
-    <Folder Include="test\" />
   </ItemGroup>
 
 </Project>
