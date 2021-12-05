@@ -54,6 +54,7 @@ namespace CSharpExercise.src.Infrastructure.Handlers
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 var username = credentials[0];
                 var password = credentials[1];
+                // need to throw exception
                 userInfo = await _userInfoService.Authenticate(username, password);
             }
             catch

@@ -29,19 +29,8 @@ namespace CSharpExercise.src.Application.UserInfos
 
             try
             {
-                //string passwordHash = BCrypt.Net.BCrypt.HashPassword(pwd);
                 //Can be null if not found
-                result = context.UserInfos.FirstOrDefault(u => u.Login == login && u.Password ==pwd);
-
-                //if login does not exist or password does not match => unauthorized
-                if (result == null /*|| !BCrypt.Net.BCrypt.Verify(pwd, result.Password)*/)
-                {
-                    result = new UserInfo()
-                    {
-                        Id = -1
-                    };
-                }
-
+                result = context.UserInfos.FirstOrDefault(u => u.Login == login && u.Password == pwd);
             }
             catch
             {
@@ -49,7 +38,6 @@ namespace CSharpExercise.src.Application.UserInfos
                 return null;
             }
 
-            //don't forget to BCrypt when registering 
             return result;
 
         }
