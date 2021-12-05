@@ -22,11 +22,13 @@ namespace CSharpExercise.src.WebUI.Controllers
     {
         // Repository to acces DB from the class
          private readonly IUserInfoRepository _repository;
+        private readonly ILogger<UserInfoController> _logger;
 
         // injection of the repository
-         public UserInfoController(IUserInfoRepository repository)
+         public UserInfoController(IUserInfoRepository repository, ILogger<UserInfoController> logger)
          {
-             _repository = repository;
+            _repository = repository;
+            _logger = logger;
          }
 
         /// <summary>
@@ -36,18 +38,31 @@ namespace CSharpExercise.src.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserInfo()
         {
+            try
+            {
+                //Infos from httpcontext about the current authenticated user
+                var name = HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                var pwd = HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.Hash).Single().Value;
 
-            //Infos from httpcontext about the current authenticated user
-            var name = HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.Name).SingleOrDefault()?.Value;
-            var pwd = HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.Hash).SingleOrDefault()?.Value;
+                //Checking Db info
+                var user = await _repository.CheckAuthentication(name, pwd);
+                
+                if (user == null)
+                {
+                    _logger.LogInformation("request for user : {name} => Unauthorized at {DateTime.Now}", name, DateTime.Now);
+                    return StatusCode(StatusCodes.Status401Unauthorized);
+                }
+                _logger.LogInformation("request for user : {name} => Success at {DateTime.Now}", name, DateTime.Now);
+                //else dsiplaying infos
+                return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(user));
 
-            //Checking Db info
-            var user = await _repository.CheckAuthentication(name,pwd);
-
-            //Checking if no internal error
-            if(user==null) return StatusCode(StatusCodes.Status500InternalServerError);
-            //else dsiplaying infos
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(user));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("The path {ex.Source} threw an exception {ex.Message}",ex.Source,ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+           
         }
     }
 }
