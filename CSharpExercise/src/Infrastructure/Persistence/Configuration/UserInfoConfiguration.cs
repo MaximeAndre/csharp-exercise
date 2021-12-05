@@ -14,6 +14,7 @@ namespace CSharpExercise.src.Infrastructure.Persistence.Configuration
         public void Configure(EntityTypeBuilder<UserInfo> builder)
         {
             builder.ToTable(TableName);
+
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
@@ -22,7 +23,7 @@ namespace CSharpExercise.src.Infrastructure.Persistence.Configuration
                 .IsRequired();
 
             builder.HasIndex(x => x.Id)
-                .HasDatabaseName("id")
+                .HasDatabaseName("id")               
                 .IsUnique();
 
             builder.Property(x => x.Login)
