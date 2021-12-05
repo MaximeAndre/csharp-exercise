@@ -9,12 +9,25 @@ namespace CSharpExercise.src.Application.UserInfos
     /// </summary>
     public class PostgreSqlUserInfoRepository : IUserInfoRepository
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         //Injection du DbContext pour accéder à la base Postgresql
         public PostgreSqlUserInfoRepository (ApplicationDbContext context)
         {
-            this.context = context;
+            this._context = context;
+        }
+
+        /// <summary>
+        /// Add User In DB
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public UserInfo Add(UserInfo userInfo)
+        {
+            _context.UserInfos.Add(userInfo);
+            _context.SaveChanges();
+            return userInfo;
         }
 
         /// <summary>
@@ -30,7 +43,7 @@ namespace CSharpExercise.src.Application.UserInfos
             try
             {
                 //Can be null if not found
-                result = context.UserInfos.FirstOrDefault(u => u.Login == login && u.Password == pwd);
+                result = _context.UserInfos.FirstOrDefault(u => u.Login == login && u.Password == pwd);
             }
             catch
             {

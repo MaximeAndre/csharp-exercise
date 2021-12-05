@@ -9,5 +9,7 @@ namespace CSharpExercise.src.Application.Common.Interface
     {
         Task<UserInfo> CheckAuthentication(string login, string pwd);
 
+        UserInfo Add(UserInfo userInfo);
+
     }
 }
