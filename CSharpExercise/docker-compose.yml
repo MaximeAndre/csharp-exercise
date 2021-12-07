@@ -7,30 +7,29 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - "UseInMemoryDatabase=false"    
-      - "ASPNETCORE_Kestrel__Certificates__Default__Password=mypassword"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/csharpexercise.pfx"
-      - "DB_CONNECTION_STRING=host=postgres_image;port=5432;database=CSharp_Exercise;username=exercise_user;password=exercisepwd"
-    volumes:
-      - ./https:/https:ro
+      - "UseInMemoryDatabase=false"
+      - "ASPNETCORE_ENVIRONMENT=Development"
+      - "ASPNETCORE_URLS=http://+:5000;http://+:5001" #Endpoints => if no https it doesn't require SSL to start
+      - "DB_CONNECTION_STRING=host=postgres_image;port=5432;database=CSharp_Exercise;username=exercise_user;password=exercisepwd" #Db Connection info for the ASP.NET container
+
     ports:
-      - "5000:5000"
-      - "5001:5001"
+      - "5000:5000" #mapping port 5000(machine) to 5000 (container)
+      - "5001:5001" #mapping port 5001(machine) to 5001(container)
     depends_on:
-      - postgres_image
+      - postgres_image #run postgres image first, else we may not be able to access DB
     restart: on-failure
 
   postgres_image:
-    image: postgres:latest
+    image: postgres:latest #select latest image for postgres on dockerhub
     ports:
-      - "5432:5432"
+      - "5432:5432" #mapping port 5432(machine) to 5432(container)
     restart: always
     environment:
-      - POSTGRES_USER=exercise_user
+      - POSTGRES_USER=exercise_user #Using these creds when creating the container
       - POSTGRES_PASSWORD=exercisepwd
       - POSTGRES_DB=CSharp_Exercise
     volumes:
-      - ./dbscripts/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
-      - ./dbscripts/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+      - ./dbscripts/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql #sql create_tables script to be run first
+      - ./dbscripts/seed.sql:/docker-entrypoint-initdb.d/seed.sql #sql seeding script to be run second
       
 
