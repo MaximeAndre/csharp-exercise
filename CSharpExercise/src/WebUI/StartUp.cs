@@ -16,7 +16,7 @@ namespace CSharpExercise.src.WebUI
         /// <summary>
         /// Constructor Getting appsetting.json configuration
         /// </summary>
-        /// <param name="configuration"></param>
+        /// <param name="configuration">appsetting.json</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -68,7 +68,7 @@ namespace CSharpExercise.src.WebUI
 
             app.UseAuthentication();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
