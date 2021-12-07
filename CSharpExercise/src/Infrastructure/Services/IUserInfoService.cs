@@ -1,7 +1,7 @@
 ﻿using CSharpExercise.src.Application.Common.Interface;
 using CSharpExercise.src.Domain.Entities;
 
-namespace CSharpExercise.src.WebUI.Services
+namespace CSharpExercise.src.Infrastructure.Services
 {
     /// <summary>
     /// Interface for UserInfoService
@@ -33,9 +33,9 @@ namespace CSharpExercise.src.WebUI.Services
         /// <returns></returns>
         public async Task<UserInfo> Authenticate(string username, string password)
         {
-            var userInfo = await Task.Run(() => _repository.CheckAuthentication(username, password));
-            if (username == null)
-                return null;
+            var userInfo = await Task.Run(() => _repository.Get(username, password));
+            /*if (username == null)
+                return null;*/
             return userInfo;
         }
     }
