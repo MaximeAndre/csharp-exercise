@@ -7,9 +7,9 @@ namespace CSharpExercise.src.Application.Common.Interface
     /// </summary>
     public interface IUserInfoRepository
     {
-        Task<UserInfo> CheckAuthentication(string login, string pwd);
+        UserInfo Get(string login, string pwd);
 
-        UserInfo Add(UserInfo userInfo);
+        UserInfo? Add(UserInfo userInfo);
 
     }
 }

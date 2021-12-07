@@ -76,15 +76,15 @@ namespace CSharpExercieUnitTest
         }
 
         [TestMethod]
-        public async Task CheckAuthentication_ReturnsUserInfo()
+        public void Get_ReturnsUserInfo()
         {
             //user To Check;
             var validUser = new UserInfo() { Id = 2, Login = "MAndre", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
             var invalidUser = new UserInfo() { Id = 2, Login = "MAndr", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
 
             //Execute method of SUT (ProductsRepository)             
-            var validUserInfo = _userInfoRepository.CheckAuthentication(validUser.Login, validUser.Password).Result;
-            var invalidUserInfo = _userInfoRepository.CheckAuthentication(invalidUser.Login, invalidUser.Password).Result;
+            var validUserInfo = _userInfoRepository.Get(validUser.Login, validUser.Password);
+            var invalidUserInfo = _userInfoRepository.Get(invalidUser.Login, invalidUser.Password);
 
             //Assert  
             Assert.IsNull(invalidUserInfo);

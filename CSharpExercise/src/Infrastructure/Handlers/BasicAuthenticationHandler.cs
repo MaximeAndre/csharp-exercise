@@ -1,5 +1,5 @@
 ﻿using CSharpExercise.src.Domain.Entities;
-using CSharpExercise.src.WebUI.Services;
+using CSharpExercise.src.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;

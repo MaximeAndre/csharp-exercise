@@ -31,28 +31,14 @@ namespace CSharpExercise.src.Application.UserInfos
         }
 
         /// <summary>
-        /// Check wether the auth info are correct and then return user info
+        /// Get user info from login/password
         /// </summary>
         /// <param name="login">user login</param>
         /// <param name="pwd">user password</param>
         /// <returns></returns>
-        public async Task<UserInfo> CheckAuthentication(string login, string pwd)
-        {
-            UserInfo result;
-
-            try
-            {
-                //Can be null if not found
-                result = _context.UserInfos.FirstOrDefault(u => u.Login == login && u.Password == pwd);
-            }
-            catch
-            {
-                // If we have an error on the request we just return null
-                return null;
-            }
-
-            return result;
-
+        public UserInfo? Get(string login, string pwd)
+        { 
+            return _context.UserInfos.FirstOrDefault(u => u.Login == login && u.Password == pwd);
         }
     }
 }
