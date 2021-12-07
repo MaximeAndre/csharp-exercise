@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Compile Remove="src\Application\UserInfos\MockUserInfoRepository.cs" />
+    <Compile Remove="src\Domain\Entities\AuthenticateModel.cs" />
     <Compile Remove="src\Infrastructure\Persistence\DbContextFactory.cs" />
   </ItemGroup>
 
