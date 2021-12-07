@@ -1,5 +1,4 @@
-﻿using CSharpExercise.src.Application.Common.Interface;
-using CSharpExercise.src.Infrastructure.Services;
+﻿using CSharpExercise.src.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

@@ -1,5 +1,4 @@
-﻿
-using CSharpExercise.src.Domain.Entities;
+﻿using CSharpExercise.src.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
