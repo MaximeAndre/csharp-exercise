@@ -15,6 +15,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using CSharpExercise.src.Application.UserInfos;
 using Microsoft.Extensions.Logging;
+using CSharpExercise.src.Infrastructure.Services;
 
 namespace CSharpExercieUnitTest
 {
@@ -27,6 +28,7 @@ namespace CSharpExercieUnitTest
     {
 
         private IUserInfoRepository _userInfoRepository;
+        private IUserInfoService _userInfoService;
         private ILogger<UserInfoController> _logger;
         private static DbContextOptions<ApplicationDbContext> CreateNewContextOptions()
         {
@@ -47,8 +49,10 @@ namespace CSharpExercieUnitTest
         public async Task Init()
         {
             var options = CreateNewContextOptions();
-            //using mockRepository 
-             _userInfoRepository = new PostgreSqlUserInfoRepository(new ApplicationDbContext(options));
+            // mock repository
+            _userInfoRepository = new PostgreSqlUserInfoRepository(new ApplicationDbContext(options));
+            // mock Service
+            _userInfoService = new UserInfoService(_userInfoRepository);
 
             _userInfoRepository.Add(new UserInfo()
             {
@@ -90,7 +94,7 @@ namespace CSharpExercieUnitTest
             var mock = new Mock<ILogger<UserInfoController>>();
             _logger = Mock.Of<ILogger<UserInfoController>>();
 
-            var sut = new UserInfoController(_userInfoRepository, _logger);
+            var sut = new UserInfoController(_userInfoService, _logger);
 
             sut.ControllerContext.HttpContext = new DefaultHttpContext()
             {
@@ -123,7 +127,7 @@ namespace CSharpExercieUnitTest
             var mock = new Mock<ILogger<UserInfoController>>();
             _logger = Mock.Of<ILogger<UserInfoController>>();
 
-            var sut = new UserInfoController(_userInfoRepository, _logger);
+            var sut = new UserInfoController(_userInfoService, _logger);
 
             sut.ControllerContext.HttpContext = new DefaultHttpContext()
             {
@@ -143,6 +147,28 @@ namespace CSharpExercieUnitTest
             Assert.AreEqual((response as StatusCodeResult).StatusCode, StatusCodes.Status401Unauthorized);
         }
 
-        //TODO: Need to test Unauthorized 401 ??
+
+        [TestMethod]
+        public async Task GetUserInfo_ReturnsStatus500()
+        {
+            //Arrange
+            var authenticatedUser = new UserInfo() { Id = 2, Login = "MAndr", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
+
+            //Mocking the logger 
+            var mock = new Mock<ILogger<UserInfoController>>();
+            _logger = Mock.Of<ILogger<UserInfoController>>();
+
+            var sut = new UserInfoController(_userInfoService, _logger);
+
+            sut.ControllerContext.HttpContext = new DefaultHttpContext(){};
+
+            //Act
+            IActionResult response = await sut.GetUserInfo();
+
+            // Assert
+            Assert.AreEqual((response as StatusCodeResult).StatusCode, StatusCodes.Status500InternalServerError);
+        }
+
+
     }
 }

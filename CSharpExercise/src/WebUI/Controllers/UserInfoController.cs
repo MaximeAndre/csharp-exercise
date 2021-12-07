@@ -1,10 +1,6 @@
 ﻿using CSharpExercise.src.Application.Common.Interface;
-using CSharpExercise.src.Application.UserInfos;
-using CSharpExercise.src.Domain.Entities;
-using CSharpExercise.src.Infrastructure;
-using CSharpExercise.src.WebUI.Services;
+using CSharpExercise.src.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Text.Json;
@@ -20,14 +16,13 @@ namespace CSharpExercise.src.WebUI.Controllers
     [Route("user")]
     public class UserInfoController : Controller
     {
-        // Repository to acces DB from the class
-        private readonly IUserInfoRepository _repository;
+        // Service + Logger DI
+        private readonly IUserInfoService _userInfoService;
         private readonly ILogger<UserInfoController> _logger;
 
-        // injection of the repository
-         public UserInfoController(IUserInfoRepository repository, ILogger<UserInfoController> logger)
+         public UserInfoController(IUserInfoService userInfoService, ILogger<UserInfoController> logger)
          {
-            _repository = repository;
+            _userInfoService = userInfoService;
             _logger = logger;
          }
 
@@ -45,7 +40,7 @@ namespace CSharpExercise.src.WebUI.Controllers
                 var pwd = HttpContext.User.Claims.Where(x => x.Type == ClaimTypes.Hash).Single().Value;
 
                 //Checking Db info
-                var user = await _repository.CheckAuthentication(name, pwd);
+                var user = await _userInfoService.Authenticate(name, pwd);
                 
                 if (user == null)
                 {
