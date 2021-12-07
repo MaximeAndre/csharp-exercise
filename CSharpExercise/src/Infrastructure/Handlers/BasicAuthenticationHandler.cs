@@ -17,7 +17,7 @@ namespace CSharpExercise.src.Infrastructure.Handlers
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         // Acces a la DB via le service
-        private readonly IUserInfoService _userInfoService;
+        private readonly UserInfoService _userInfoService;
 
         //Injection du Service dans le constructeur
         public BasicAuthenticationHandler(
@@ -25,7 +25,7 @@ namespace CSharpExercise.src.Infrastructure.Handlers
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
-            IUserInfoService userInfoService) : base(options, logger, encoder, clock)
+            UserInfoService userInfoService) : base(options, logger, encoder, clock)
         {
             _userInfoService = userInfoService;
         }

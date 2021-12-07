@@ -2,7 +2,7 @@
 using CSharpExercise.src.Domain.Entities;
 using CSharpExercise.src.Infrastructure.Persistance;
 
-namespace CSharpExercise.src.Application.UserInfos
+namespace CSharpExercise.src.Infrastructure.Repositories
 {
     /// <summary>
     /// IUserInforepository implementation for PostgreSql

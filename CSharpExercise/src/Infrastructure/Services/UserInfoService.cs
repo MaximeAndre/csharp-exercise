@@ -4,14 +4,6 @@ using CSharpExercise.src.Domain.Entities;
 namespace CSharpExercise.src.Infrastructure.Services
 {
     /// <summary>
-    /// Interface for UserInfoService
-    /// </summary>
-    public interface IUserInfoService
-    {
-       Task<UserInfo> Authenticate(string username, string password);
-    }
-
-    /// <summary>
     /// Service for basic Auth using the UserInfoRepository
     /// </summary>
     public class UserInfoService : IUserInfoService

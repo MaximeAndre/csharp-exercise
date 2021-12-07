@@ -17,10 +17,10 @@ namespace CSharpExercise.src.WebUI.Controllers
     public class UserInfoController : Controller
     {
         // Service + Logger DI
-        private readonly IUserInfoService _userInfoService;
+        private readonly UserInfoService _userInfoService;
         private readonly ILogger<UserInfoController> _logger;
 
-         public UserInfoController(IUserInfoService userInfoService, ILogger<UserInfoController> logger)
+         public UserInfoController(UserInfoService userInfoService, ILogger<UserInfoController> logger)
          {
             _userInfoService = userInfoService;
             _logger = logger;

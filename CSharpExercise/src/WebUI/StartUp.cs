@@ -1,11 +1,10 @@
 ﻿using CSharpExercise.src.Application.Common.Interface;
-using CSharpExercise.src.Application.UserInfos;
 using CSharpExercise.src.Infrastructure.Handlers;
 using CSharpExercise.src.Infrastructure.Persistance;
+using CSharpExercise.src.Infrastructure.Repositories;
 using CSharpExercise.src.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-//using NSwag;
 
 
 
@@ -42,7 +41,7 @@ namespace CSharpExercise.src.WebUI
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             // Injecting UserInfoService
-            services.AddScoped<IUserInfoService, UserInfoService>();
+            services.AddScoped<UserInfoService, UserInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,11 +53,6 @@ namespace CSharpExercise.src.WebUI
                 app.UseDeveloperExceptionPage();
             }
 
-            //TODO: Check Swagger
-            // Register the Swagger generator and the Swagger UI middleware
-            // app.UseSwaggerUi3();
-            // app.UseReDoc(); // serve ReDoc UI
-
             // Gestion multi-origin 
             // Allow any request
             app.UseCors(x => x
@@ -68,6 +62,7 @@ namespace CSharpExercise.src.WebUI
 
             app.UseAuthentication();
 
+            // Use HTTP instead
             //app.UseHttpsRedirection();
 
             app.UseRouting();
