@@ -2,7 +2,7 @@
 using CSharpExercise.src.Application.UserInfos;
 using CSharpExercise.src.Infrastructure.Handlers;
 using CSharpExercise.src.Infrastructure.Persistance;
-using CSharpExercise.src.WebUI.Services;
+using CSharpExercise.src.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 //using NSwag;

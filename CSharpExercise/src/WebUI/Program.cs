@@ -17,6 +17,4 @@ namespace CSharpExercise.src.WebUI
                     webBuilder.UseStartup<Startup>();
                 });
     }
-
-    // check postgres after select to return an error
 }
