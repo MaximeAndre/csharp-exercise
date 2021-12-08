@@ -87,5 +87,19 @@ namespace CSharpExercieUnitTest
             Assert.IsInstanceOfType(validUserInfo, typeof(UserInfo));
         }
 
+        [TestMethod]
+        public void Add_ReturnsVoid()
+        {
+            //user To Check;
+            var newUser = new UserInfo() { Id = 4, Login = "ODelamarine", Password = "xxx", FirstName = "Olga", LastName = "Delamarine", Email = "olga@delamarine.com" };
+           // var invalidUser = new UserInfo() { Id = 2, Login = "MAndr", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
+
+            //Execute method of SUT (ProductsRepository)             
+            _userInfoRepository.Add(newUser);
+
+            //Assert  
+            Assert.AreEqual(_userInfoRepository.Get("ODelamarine", "xxx"), newUser);
+        }
+
     }
 }

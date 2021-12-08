@@ -25,7 +25,6 @@ namespace CSharpExercise.src.Infrastructure.Services
         /// <returns></returns>
         public async Task<UserInfo> Authenticate(string username, string password)
         {
-            
             return await Task.Run(() => _repository.Get(username, password));
         }
     }
