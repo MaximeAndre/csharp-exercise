@@ -80,11 +80,11 @@ namespace CSharpExerciseTest.Infrastructure.UnitTest
         public async Task Authenticate_ReturnsUserInfo()
         {
             var userInfoService = new UserInfoService(_userInfoRepository);
-            //user To Check;
+            //User to check
             var validUser = new UserInfo() { Id = 2, Login = "MAndre", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
             var invalidUser = new UserInfo() { Id = 2, Login = "MAndr", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
 
-            //Execute method of SUT (ProductsRepository)             
+            //Execute method of SUT (UserInfoService)             
             var validUserInfo = await userInfoService.Authenticate(validUser.Login, validUser.Password);
             var invalidUserInfo = await userInfoService.Authenticate(invalidUser.Login, invalidUser.Password);
 
@@ -94,7 +94,7 @@ namespace CSharpExerciseTest.Infrastructure.UnitTest
 
             Assert.IsNotNull(validUserInfo);
             Assert.IsInstanceOfType(validUserInfo, typeof(UserInfo));
-            Assert.AreEqual(validUserInfo.Id, validUserInfo.Id);
+            Assert.AreEqual(validUser.Id, validUserInfo.Id);
             Assert.AreEqual(validUser.Login, validUserInfo.Login);
             Assert.AreEqual(validUser.Password, validUserInfo.Password);
             Assert.AreEqual(validUser.FirstName, validUserInfo.FirstName);

@@ -54,9 +54,8 @@ namespace CSharpExercise.src.WebUI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("The path {ex.Source} threw an exception {ex.Message}",ex.Source,ex.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-           
+                return StatusCode(StatusCodes.Status500InternalServerError, null); // or StatusCode(StatusCodes.Status500InternalServerError) ?? 
+            }           
         }
     }
 }

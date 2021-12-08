@@ -73,11 +73,11 @@ namespace CSharpExercieUnitTest
         [TestMethod]
         public void Get_ReturnsUserInfo()
         {
-            //user To Check;
+            //User to check
             var validUser = new UserInfo() { Id = 2, Login = "MAndre", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
             var invalidUser = new UserInfo() { Id = 2, Login = "MAndr", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
 
-            //Execute method of SUT (ProductsRepository)             
+            //Execute method of SUT (UserInfoRepository)             
             var validUserInfo = _userInfoRepository.Get(validUser.Login, validUser.Password);
             var invalidUserInfo = _userInfoRepository.Get(invalidUser.Login, invalidUser.Password);
 
@@ -85,16 +85,22 @@ namespace CSharpExercieUnitTest
             Assert.IsNull(invalidUserInfo);
             Assert.IsNotNull(validUserInfo);
             Assert.IsInstanceOfType(validUserInfo, typeof(UserInfo));
+            Assert.AreEqual(validUserInfo.Id, validUserInfo.Id);
+            Assert.AreEqual(validUser.Login, validUserInfo.Login);
+            Assert.AreEqual(validUser.Password, validUserInfo.Password);
+            Assert.AreEqual(validUser.FirstName, validUserInfo.FirstName);
+            Assert.AreEqual(validUser.LastName, validUserInfo.LastName);
+            Assert.AreEqual(validUser.Email, validUserInfo.Email);
         }
 
         [TestMethod]
         public void Add_ReturnsVoid()
         {
-            //user To Check;
+            ///User to check
             var newUser = new UserInfo() { Id = 4, Login = "ODelamarine", Password = "xxx", FirstName = "Olga", LastName = "Delamarine", Email = "olga@delamarine.com" };
-           // var invalidUser = new UserInfo() { Id = 2, Login = "MAndr", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
+            // var invalidUser = new UserInfo() { Id = 2, Login = "MAndr", Password = "$2a$11$wZOx21wLPR4YuBWVg.soruWxMHo6kbH4g0s3FO6ORaF7upuuZ2Ee6", FirstName = "Maxime", LastName = "Andre", Email = "maxime@andre.com" };
 
-            //Execute method of SUT (ProductsRepository)             
+            //Execute method of SUT (UserInfoRepository)             
             _userInfoRepository.Add(newUser);
 
             //Assert  
