@@ -67,3 +67,5 @@ make [Args]
 ## Logs
 
 We can find logs while running the project directly on the serveur while sending requests.
+You can also find in file log on the serveur under `/app/Logs`.
+There is one log per day, and all request are listed and dated.
