@@ -1,85 +1,69 @@
-# Technical test
+ # Technical test
 
-## Introduction
+Here is my implementation for the http server that is protect by authentication and returns a simple response.
 
-The purpose of this test is to ensure you have some basic knowledge of the
-C#'s standard library, and that you are familiar with objects.
+## Solution Architecture
 
-You have to build an http server that is protected by authentication
-and returns a simple response.
+I followed the clean architecture template from jason taylor, as recommanded you can find it in `CSharpExercise\src`.
 
-## Deliverable
+### Domain
 
-To deliver the test, fork this project and provide the following items:
+This will contain all entities, enums, exceptions, interfaces, types and logic specific to the domain layer.
 
-- The source code of the C# http server, with simple build instructions.
-- All necessary script to create and seed the different databases.
-- The software will be compiled with the latest .Net Core version.
-- The software and its ecosystem will be run and tested on a local computer.
+### Application
 
-_Note: You can use Docker and docker-compose to provide the databases._  
-_Note: Use makefile for build, testing, running and starting dependencies._
+This layer contains all application logic. It is dependent on the domain layer, but has no dependencies on any other layer or project. This layer defines interfaces that are implemented by outside layers. For example, if the application need to access a notification service, a new interface would be added to application and an implementation would be created within infrastructure.
 
-## Authentication
+### Infrastructure
 
-The authentication is done by basic auth.  
-The credentials must be checked in postgres.
+This layer contains classes for accessing external resources such as file systems, web services, smtp, and so on. These classes should be based on interfaces defined within the application layer.
 
-| field | type |
-| --- | --- |
-| id | int |
-| login | string |
-| password | string |
-| first_name | string |
-| last_name | string |
-| email | string |
+### WebUI
 
-## Response
+This layer is a single page application based on Angular 10 and ASP.NET Core 5. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
 
-The server should return the authenticated user or an error.
-The potential internal errors must not be returned in the reponse,
-but every request must be logged.
 
-Expected response:
+## API Documentation
+
+```http
+GET http://localhost:5000/user 
 ```
+This return current authenticated user informations as followed :
+
+```json
     {
-        "ID": "1",
-        "FirstName": "Laurent",
-        "LastName": "G."
-        "Email": "l.g@oplead.com"
+        "ID": "3",
+        "FirstName": "Emma",
+        "LastName": "Taume",
+        "Email": "emma@taume.com"
     }
 ```
 
-The HTTP return codes can be `200`, `401` and `500`
+## Deployment and Testing
 
-## Evaluation
+### Makefile
 
-The evaluation criterium are:
+I created a makefile in order to deploy the solution in the easiest way as possible.
+Open a new terminal while on the root folder of the solution and use :
+```shell
+make [Args] 
+```
 
-1. Validity
-    - The software must do what it is supposed to do.
+| Args | Description |
+| --- | --- |
+| start | Starting postgres db and the app in the two separate docker container |
+| user_success | Sending a request to the server with an authenticated user |
+| user_failed | Sending a request to the server with an unauthenticated user |
+| stop | Stopping both docker container |
 
-2. Maintainability 
-    - The source code should follow c# naming conventions.
-    - The source code must be readable.
-    - The source code must be tested.
-    - The source code must be commented.
- 
-3. Exploitability
-    - The support team must be able to troubleshoot with the logs.
-    - The configuration must be easy.
-    - The software must be documented.
-    - The software must be easy to deploy.
+### Status code
 
-4. Security
-    - The password must be crypted in database.
-    - No secret must be present in the repository (password, etc.)
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 401 | `UNAUTHORIZED` |
+| 500 | `INTERNAL SERVER ERROR` |
 
-## Help!
+## Logs
 
-- If you are a new to c#, there is some documentation
-[here](https://docs.microsoft.com/en-us/dotnet/csharp/)
-- If you look for a pretty design, at Perfoweb, we tend to follow the
-[Jason Taylor's architecture](https://jasontaylor.dev/clean-architecture-getting-started/)
-- Should you need help to write your code or beat your compiler, feel free to
-ask us directly !
+We can find logs while running the project directly on the serveur while sending requests.
