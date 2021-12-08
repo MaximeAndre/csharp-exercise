@@ -77,6 +77,6 @@ Use in the above order to test properly the solution.
 
 ## Logs
 
-We can find logs while running the project directly on the server while sending requests.
-You can also find in file log on the serveur under `/app/Logs`.
+We can find live logs on the server while running the project directly.
+You can also find in file logs on the server under `/app/Logs`.
 There is one log per day, and all requests are listed with date and time.

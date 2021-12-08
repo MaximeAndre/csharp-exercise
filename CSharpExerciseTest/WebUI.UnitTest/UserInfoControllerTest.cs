@@ -157,9 +157,11 @@ namespace CSharpExercieUnitTest
 
             //Act
             IActionResult response = await sut.GetUserInfo();
+            ObjectResult objectResponse = (ObjectResult)response;
 
             // Assert
-            Assert.AreEqual((response as StatusCodeResult).StatusCode, StatusCodes.Status500InternalServerError);
+            Assert.AreEqual(objectResponse.StatusCode, StatusCodes.Status500InternalServerError);
+            Assert.IsNull(objectResponse.Value);
         }
 
 
