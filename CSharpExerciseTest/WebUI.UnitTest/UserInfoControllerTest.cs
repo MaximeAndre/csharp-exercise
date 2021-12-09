@@ -15,7 +15,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace CSharpExercieUnitTest
+namespace CSharpExercieUnitTest.WebUI.UnitTest
 {
     /// <summary>
     /// Controller Testing Class

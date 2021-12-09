@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 
-namespace CSharpExercieUnitTest
+namespace CSharpExercieUnitTest.Infrastructure.UnitTest
 {
     /// <summary>
     /// Testing Class for repository

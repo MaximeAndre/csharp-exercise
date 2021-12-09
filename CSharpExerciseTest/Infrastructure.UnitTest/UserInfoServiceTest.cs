@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpExerciseTest.Infrastructure.UnitTest
+namespace CSharpExercieUnitTest.Infrastructure.UnitTest
 {
     /// <summary>
     /// Testing Class for userService
